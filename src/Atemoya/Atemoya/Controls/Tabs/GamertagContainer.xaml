@@ -1,0 +1,507 @@
+﻿<UserControl
+    x:Class="Atemoya.Controls.Tabs.GamertagContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CONTROL_HELPERS="clr-namespace:Atemoya.Classes.Helpers.Controls"
+    xmlns:CONVERTERS="clr-namespace:Atemoya.Classes.Converters"
+    xmlns:DESIGN_SETTINGS="clr-namespace:Atemoya.Classes.Design"
+    xmlns:ENTITIES_GAMERTAG="clr-namespace:Atemoya.Classes.Entities"
+    xmlns:MODELS="clr-namespace:Atemoya.Classes.Models"
+    xmlns:BEHAVIORS="clr-namespace:Atemoya.Classes.Commands.Behaviors"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance DESIGN_SETTINGS:DesignSettings,
+                                     IsDesignTimeCreatable=True}"
+    Background="{DynamicResource DEFAULT_WindowBackground}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0,0,4,4" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="{StaticResource DEFAULT_WindowForeground}" />
+            <Setter Property="Background" Value="{StaticResource DEFAULT_WindowBackground}" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Padding" Value="5,0,5,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Focusable="False" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Effect" Value="{StaticResource DEFAULT_DropShadow}" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsEnabled" Value="True" />
+                                    <Condition Property="IsPressed" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background" Value="#FF464646" />
+                                <Setter Property="Foreground" Value="{StaticResource DEFAULT_WindowForeground}" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsEnabled" Value="True" />
+                                    <Condition Property="IsPressed" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background" Value="#FF202020" />
+                                <Setter Property="Effect" Value="{StaticResource DEFAULT_DropShadow}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Height="30">
+            <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource DEFAULT_WindowBorder}">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Width="30"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        ToolTip="Add"
+                        Command="{Binding DataContext.AddGamertagCommand, ElementName=Items}">
+                        <Button.Content>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource UI_IconAdd}"
+                                Stretch="Fill" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        Width="30"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        Command="{Binding DataContext.RefreshGamertagsCommand, ElementName=Items}"
+                        ToolTip="Refresh">
+                        <Button.Content>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource UI_IconRefresh}"
+                                Stretch="Fill" />
+                        </Button.Content>
+                    </Button>
+                    <Label
+                        Grid.Column="3"
+                        Content="Filters:"
+                        Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+                    <Button
+                        Grid.Column="4"
+                        Width="30"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        Command="{Binding DataContext.ViewControllerGamertagsCommand, ElementName=Items}"
+                        ToolTip="View Controller Only">
+                        <Button.Content>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource UI_IconController}"
+                                Stretch="Fill" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Column="5"
+                        Width="30"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        Command="{Binding DataContext.ViewMouseGamertagsCommand, ElementName=Items}"
+                        ToolTip="View Mouse\Keyboard Only">
+                        <Button.Content>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource UI_IconMouse}"
+                                Stretch="Fill" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Column="6"
+                        Width="30"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        Command="{Binding DataContext.ViewAllGamertagsCommand, ElementName=Items}"
+                        ToolTip="View All Inputs">
+                        <Button.Content>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource UI_IconInput}"
+                                Stretch="Fill" />
+                        </Button.Content>
+                    </Button>
+
+                </Grid>                
+            </Border>
+
+        </Border>
+
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Auto"
+            Template="{DynamicResource UiScrollViewer}"
+            VerticalScrollBarVisibility="Auto">
+
+            <ScrollViewer.Resources>
+                <ControlTemplate x:Key="UiScrollViewer" TargetType="{x:Type ScrollViewer}">
+                    <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle
+                            x:Name="Corner"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Fill="{x:Null}" />
+
+                        <ScrollContentPresenter
+                            x:Name="PART_ScrollContentPresenter"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="{TemplateBinding Padding}"
+                            CanContentScroll="{TemplateBinding CanContentScroll}"
+                            CanHorizontallyScroll="False"
+                            CanVerticallyScroll="False"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+
+                        <ScrollBar
+                            x:Name="PART_VerticalScrollBar"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            AutomationProperties.AutomationId="VerticalScrollBar"
+                            Cursor="Arrow"
+                            Maximum="{TemplateBinding ScrollableHeight}"
+                            Minimum="0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            ViewportSize="{TemplateBinding ViewportHeight}"
+                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                    </Grid>
+                </ControlTemplate>
+            </ScrollViewer.Resources>
+
+            <ItemsControl
+                x:Name="Items"
+                Padding="2,2,2,2"
+                d:DataContext="{d:DesignInstance Type=DESIGN_SETTINGS:DesignSettings,
+                                                 IsDesignTimeCreatable=True}"
+                ItemsSource="{Binding Path=Tags}">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="ENTITIES_GAMERTAG:Gamertag">
+
+                        <Border
+                            Height="80"
+                            Margin="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            BorderThickness="1"
+                            Tag="{Binding}"
+                            Visibility="{Binding Path=IsHidden, Converter={CONVERTERS:NotBoolToVisibilityConverter}}">
+
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Border.BorderBrush" Value="{DynamicResource DEFAULT_WindowBorder}" />
+                                    <Setter Property="Border.Background" Value="{DynamicResource DEFAULT_WindowBackgroundDark}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="Border.IsMouseOver" Value="True">
+                                            <Setter Property="Border.Cursor" Value="Hand" />
+                                            <Setter Property="Border.Background" Value="{DynamicResource DEFAULT_WindowBackground}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MinWidth="300" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="1px" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Column="0"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{Binding Path=Name}"
+                                    FontSize="20"
+                                    Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+                                <Image
+                                    Grid.Column="1"
+                                    Width="50"
+                                    Height="50"
+                                    Effect="{DynamicResource DEFAULT_DropShadow}"
+                                    Source="{Binding Path=Input, Converter={CONVERTERS:InputToImageConverter}}"
+                                    Stretch="Uniform"
+                                    StretchDirection="Both" Margin="5,0,5,0" />
+                                <Grid Grid.Column="2" VerticalAlignment="Center">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0" Margin="5,0,5,0">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            VerticalAlignment="Bottom"
+                                            Content="Email"
+                                            Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+                                        <Grid
+                                            Grid.Row="1"
+                                            Margin="0,0,10,0"
+                                            VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox
+                                                Grid.Column="0"
+                                                MinWidth="250"
+                                                Margin="5,0,5,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                Foreground="{DynamicResource DEFAULT_WindowForeground}"
+                                                IsEnabled="{Binding IsEditing}"
+                                                IsReadOnly="{Binding IsEditing, Converter={CONVERTERS:IsEditingConverter}}"
+                                                Text="{Binding Email}" 
+                                                MaxWidth="250">
+                                                <i:Interaction.Behaviors>
+                                                    <BEHAVIORS:EmailChangedCommandBehavior Command="{Binding Path=Gamertags.ChangeEmailCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                                                                          CommandParameter="{Binding}" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+                                            <Button
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                Command="{Binding Path=Gamertags.CopyEmailCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource UI_ButtonBase}">
+                                                <Button.Content>
+                                                    <Image
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="5,0,5,0"
+                                                        Source="{DynamicResource UI_IconCopy}"
+                                                        Stretch="Fill" />
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="5,0,5,0">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            VerticalAlignment="Bottom"
+                                            Content="Password"
+                                            Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+                                        <Grid
+                                            Grid.Row="1"
+                                            Margin="0,0,10,0"
+                                            VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <PasswordBox
+                                                Grid.Column="0"
+                                                MinWidth="250"
+                                                Margin="5,0,5,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                VerticalContentAlignment="Center"
+                                                CONTROL_HELPERS:PasswordHelper.SecurePassword="{Binding Password, Converter={CONVERTERS:EncryptedStringToSecureStringConverter}}"
+                                                Foreground="{DynamicResource DEFAULT_WindowForeground}"
+                                                IsEnabled="{Binding IsEditing}"
+                                                PasswordChar="*"
+                                                Style="{DynamicResource PasswordBoxStyle1}">
+                                                <i:Interaction.Behaviors>
+                                                    <BEHAVIORS:PasswordChangedCommandBehavior Command="{Binding Path=Gamertags.ChangePasswordCommand, Source={x:Static MODELS:Locator.Instance}}" 
+                                                                                              CommandParameter="{Binding}" />
+                                                </i:Interaction.Behaviors>
+                                            </PasswordBox>
+                                            <Button
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                Command="{Binding Path=Gamertags.CopyPasswordCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource UI_ButtonBase}">
+                                                <Button.Content>
+                                                    <Image
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="5,0,5,0"
+                                                        Source="{DynamicResource UI_IconCopy}"
+                                                        Stretch="Fill" />
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                    </Grid>
+
+                                </Grid>
+                                <Border Grid.Column="3" Background="{DynamicResource DEFAULT_WindowBorder}"/>
+                                <Grid Grid.Column="4" Margin="5,5,5,5">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Padding="1,1,1,1"
+                                        Style="{StaticResource UI_ButtonBase}"
+                                        Command="{Binding Path=Gamertags.SaveGamertagCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                        CommandParameter="{Binding}"
+                                        Visibility="{Binding IsEditing, Converter={CONVERTERS:IsBoolToVisibilityConverter}}"
+                                        ToolTip="Save" Width="40">
+                                        <Button.Content>
+                                            <Image
+                                                    Width="25"
+                                                    Height="25"
+                                                    Source="{DynamicResource UI_IconSave}"
+                                                    Stretch="Fill" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button
+                                        Grid.Column="2"
+                                        Padding="1,1,1,1"
+                                        Style="{StaticResource UI_ButtonBase}"
+                                        Command="{Binding Path=Gamertags.EditGamertagCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                        CommandParameter="{Binding}"
+                                        Visibility="{Binding IsEditing, Converter={CONVERTERS:NotBoolToVisibilityConverter}}"
+                                        ToolTip="Edit" Width="40">
+                                        <Button.Content>
+                                            <Image
+                                                    Grid.Column="0"
+                                                    Width="25"
+                                                    Height="25"
+                                                    Source="{DynamicResource UI_IconEdit}"
+                                                    Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button
+                                        Grid.Column="3"
+                                        Style="{StaticResource UI_ButtonBase}"
+                                        Command="{Binding Path=Gamertags.RemoveGamertagCommand, Source={x:Static MODELS:Locator.Instance}}"
+                                        CommandParameter="{Binding}"
+                                        ToolTip="Remove" Width="40">
+                                        <Button.Content>
+                                            <Image
+                                                    Grid.Column="0"
+                                                    Width="25"
+                                                    Height="25"
+                                                    Source="{DynamicResource UI_IconDelete}"
+                                                    Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Button.Content>
+                                    </Button>
+
+                                </Grid>
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</UserControl>

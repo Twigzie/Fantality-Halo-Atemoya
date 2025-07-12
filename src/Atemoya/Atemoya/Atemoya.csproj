@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2D2C341C-035E-47F8-99F4-CBC80AC6EFDB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Atemoya</RootNamespace>
+    <AssemblyName>Atemoya</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <AssemblyVersion>2025.0712.62.2140</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Atemoya.App.Base</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.4.1.0\lib\net40\PropertyChanged.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App\Base.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\Tabs\GamertagContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Windows\Dialogs\Add.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Windows\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App\Base.xaml.cs">
+      <DependentUpon>Base.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Commands\Behaviors\PasswordChangedCommandBehavior.cs" />
+    <Compile Include="Classes\Commands\Behaviors\EmailChangedCommandBehavior.cs" />
+    <Compile Include="Classes\Commands\RelayCommand.cs" />
+    <Compile Include="Classes\Commands\RelayGenericParamCommand.cs" />
+    <Compile Include="Classes\Commands\RelayParamCommand.cs" />
+    <Compile Include="Classes\Config\AppSettings.cs" />
+    <Compile Include="Classes\Converters\IsEditingConverter.cs" />
+    <Compile Include="Classes\Converters\InputToImageConverter.cs" />
+    <Compile Include="Classes\Converters\EncryptedStringToStringConverter.cs" />
+    <Compile Include="Classes\Converters\EncryptedStringToSecureStringConverter.cs" />
+    <Compile Include="Classes\Design\DesignSettings.cs" />
+    <Compile Include="Classes\Entities\Gamertag.cs" />
+    <Compile Include="Classes\Converters\Base\IConverter.cs" />
+    <Compile Include="Classes\Converters\CountToBoolConverter.cs" />
+    <Compile Include="Classes\Converters\IsBoolToVisibilityConverter.cs" />
+    <Compile Include="Classes\Converters\NotBoolToVisibilityConverter.cs" />
+    <Compile Include="Classes\Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Classes\Converters\TypeToImageConverter.cs" />
+    <Compile Include="Classes\Helpers\Controls\PasswordHelper.cs" />
+    <Compile Include="Classes\Helpers\Enums.cs" />
+    <Compile Include="Classes\Helpers\Extensions\BaseExtensions.cs" />
+    <Compile Include="Classes\Helpers\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Classes\Helpers\Native.cs" />
+    <Compile Include="Classes\Helpers\Paths.cs" />
+    <Compile Include="Classes\Helpers\Security\Encryption.cs" />
+    <Compile Include="Classes\Helpers\Security\AESEncryption.cs" />
+    <Compile Include="Classes\Models\Base\Model.cs" />
+    <Compile Include="Classes\Models\Application\GamertagModel.cs" />
+    <Compile Include="Classes\Models\Locator.cs" />
+    <Compile Include="Classes\Models\Application\AppModel.cs" />
+    <Compile Include="Classes\Models\Application\TabModel.cs" />
+    <Compile Include="Controls\Tabs\GamertagContainer.xaml.cs">
+      <DependentUpon>GamertagContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Dialogs\Add.xaml.cs">
+      <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Windows\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Images\Icons\icons.psd" />
+    <None Include="Resources\Images\Icons\Inputs\inputs.psd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+    <Resource Include="Resources\Icons\icon.ico" />
+    <Resource Include="Resources\Images\Icons\icon.png" />
+    <Resource Include="Resources\Images\Icons\icon_new.png" />
+    <Resource Include="Resources\Images\Icons\icon_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_copy.png" />
+    <Resource Include="Resources\Images\Icons\icon_delete.png" />
+    <Resource Include="Resources\Images\Icons\icon_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Inputs\CONTROLLER.png" />
+    <Resource Include="Resources\Images\Icons\Inputs\KEYBOARD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_add.png" />
+    <Resource Include="Resources\Images\Icons\icon_favorite.png" />
+    <Resource Include="Resources\Images\Icons\icon_main.png" />
+    <Resource Include="Resources\Images\Icons\icon_tag.png" />
+    <Resource Include="Resources\Images\Icons\icon_unfavorite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_controller.png" />
+    <Resource Include="Resources\Images\Icons\icon_input.png" />
+    <Resource Include="Resources\Images\Icons\icon_keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\Icons\Info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_save.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.4.1.0\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.8.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.0\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Fody.6.8.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.0\build\Fody.targets')" />
+</Project>

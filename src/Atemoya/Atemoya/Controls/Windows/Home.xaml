@@ -1,0 +1,422 @@
+﻿<Window
+    x:Class="Atemoya.Controls.Windows.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:HELPERS="clr-namespace:Atemoya.Classes.Helpers"
+    xmlns:UI="clr-namespace:Atemoya.Controls.Windows"
+    xmlns:c="clr-namespace:Atemoya.Classes.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:m="clr-namespace:Atemoya.Classes.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1206"
+    Height="700"
+    d:DataContext="{d:DesignInstance Type=UI:Home,
+                                     IsDesignTimeCreatable=True}"
+    AllowsTransparency="True"
+    Background="{DynamicResource DEFAULT_WindowBackground}"
+    BorderBrush="{StaticResource DEFAULT_WindowBorder}"
+    BorderThickness="1"
+    Foreground="{DynamicResource DEFAULT_WindowForeground}"
+    RenderOptions.BitmapScalingMode="HighQuality"
+    ResizeMode="CanResizeWithGrip"
+    SnapsToDevicePixels="True"
+    StateChanged="OnWindowChanged"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+
+        <Style TargetType="ResizeGrip">
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Margin" Value="0,0,2,2" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ResizeGrip}">
+                        <Border
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            SnapsToDevicePixels="True">
+                            <Path
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M7.677,7.5300003 L9.677,7.5300003 9.677,9.5300002 7.677,9.5300002 z M3.786,7.5300003 L5.7859998,7.5300003 5.7859998,9.5300002 3.786,9.5300002 z M0,7.5300003 L2,7.5300003 2,9.5300002 0,9.5300002 z M3.786,3.8280003 L5.7859998,3.8280003 5.7859998,5.8280003 3.786,5.8280003 z M7.677,3.7660003 L9.677,3.7660003 9.677,5.7659999 7.677,5.7659999 z M7.677,0 L9.677,0 9.677,2 7.677,2 z"
+                                Fill="{StaticResource DEFAULT_WindowBorder}"
+                                Stretch="Fill" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30" />
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <!--  CAPTION  -->
+        <Grid x:Name="Grid_Menu" Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Icon  -->
+            <Image
+                Grid.Column="0"
+                Width="20"
+                Height="20"
+                Source="{StaticResource UI_Icon}"
+                WindowChrome.IsHitTestVisibleInChrome="False" />
+
+            <!--  Menu  -->
+            <Menu
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <MenuItem Header="..." WindowChrome.IsHitTestVisibleInChrome="True">
+                    <MenuItem Click="OnMenuGithub" Header="Github" />
+                    <MenuItem Click="OnMenuAbout" Header="About" />
+                </MenuItem>
+            </Menu>
+
+            <!--  TITLE  -->
+            <Label
+                Grid.Column="2"
+                Margin="5,4"
+                Padding="5,1,5,2"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="#FF151515"
+                BorderBrush="{DynamicResource DEFAULT_WindowBorder}"
+                BorderThickness="1"
+                Content="{Binding Path=Application.Caption, Source={x:Static m:Locator.Instance}}"
+                Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+
+            <!--  Buttons  -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Width" Value="45" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="Foreground" Value="{StaticResource DEFAULT_WindowForeground}" />
+                        <Setter Property="Background" Value="{StaticResource DEFAULT_WindowBackground}" />
+                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border
+                                        x:Name="border"
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter
+                                            x:Name="contentPresenter"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Focusable="False" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                                <Condition Property="IsEnabled" Value="True" />
+                                                <Condition Property="IsPressed" Value="False" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="border" Property="Background" Value="#FF464646" />
+                                            <Setter Property="Foreground" Value="{StaticResource DEFAULT_WindowForeground}" />
+                                        </MultiTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                                <Condition Property="IsEnabled" Value="True" />
+                                                <Condition Property="IsPressed" Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="border" Property="Background" Value="#FF202020" />
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="3" ShadowDepth="0" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <Button x:Name="PartBtnMinimize" Click="OnWindowMinimize">
+                    <Button.Content>
+                        <TextBlock Text="&#xE921;" />
+                    </Button.Content>
+                </Button>
+                <Button
+                    x:Name="PartBtnRestore"
+                    Click="OnWindowRestore"
+                    Visibility="Collapsed">
+                    <Button.Content>
+                        <TextBlock Text="&#xE923;" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="PartBtnMaximize" Click="OnWindowMaximize">
+                    <Button.Content>
+                        <TextBlock Text="&#xE922;" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="PartBtnClose" Click="OnWindowClose">
+                    <Button.Content>
+                        <TextBlock Text="&#xE8BB;" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+        <!--  CONTENT  -->
+        <Grid
+            x:Name="Grid_Content"
+            Grid.Row="1"
+            Background="{DynamicResource DEFAULT_WindowBackgroundDark}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ToolBar
+                Grid.Row="0"
+                Height="49"
+                Padding="2,0"
+                Background="{DynamicResource DEFAULT_WindowBackground}"
+                BorderBrush="{DynamicResource DEFAULT_WindowBorder}"
+                BorderThickness="0,1"
+                Foreground="{DynamicResource DEFAULT_WindowForeground}"
+                Style="{DynamicResource UI_Toolbar}"
+                ToolBarTray.IsLocked="True">
+                <Separator />
+                <Button
+                    x:Name="ToolbarBtnTags"
+                    Command="{Binding Path=Application.OpenTabCommad, Source={x:Static m:Locator.Instance}}"
+                    CommandParameter="{x:Static HELPERS:TabType.Tags}"
+                    IsEnabled="True"
+                    ToolTip="Gamertags">
+                    <Button.Content>
+                        <Grid Width="{Binding ActualWidth, ElementName=ToolbarBtnTags, Mode=OneWay}">
+                            <Image Width="35" Source="{StaticResource UI_IconTags}" />
+                            <Label Content="{Binding Path=Gamertags.CountPrefix, Source={x:Static m:Locator.Instance}}" Style="{StaticResource UI_CounterLabel}" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Separator />
+            </ToolBar>
+
+            <Grid Grid.Row="1">
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="To view gamertags or add\remove an existing one, select the list icon from the toolbar.">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Application.Tabs.Count, Source={x:Static m:Locator.Instance}, Mode=OneWay}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TabControl
+                    x:Name="MainTabControl"
+                    Grid.Row="0"
+                    Margin="5"
+                    BorderBrush="{DynamicResource DEFAULT_WindowBorder}"
+                    BorderThickness="1"
+                    ItemsSource="{Binding Path=Application.Tabs, Source={x:Static m:Locator.Instance}}">
+                    <TabControl.Style>
+                        <Style BasedOn="{StaticResource UI_TabControl}" TargetType="TabControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Application.Tabs.Count, Source={x:Static m:Locator.Instance}, Mode=OneWay}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabControl.Style>
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="Height" Value="50" />
+                            <Setter Property="IsSelected" Value="True" />
+                            <Setter Property="UseLayoutRounding" Value="True" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" />
+                            <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TabItem}">
+                                        <Border
+                                            x:Name="mainBorder"
+                                            Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}"
+                                            BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}"
+                                            BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter
+                                                    x:Name="contentPresenter"
+                                                    Grid.Column="0"
+                                                    HorizontalAlignment="Stretch"
+                                                    ContentSource="Header"
+                                                    Focusable="False" />
+                                                <Button
+                                                    x:Name="PART_Button"
+                                                    Grid.Column="1"
+                                                    Width="20"
+                                                    Height="20"
+                                                    Margin="7,3,3,3"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Background="{StaticResource DEFAULT_WindowBackground}"
+                                                    BorderBrush="#FF303030"
+                                                    Command="{Binding Path=Application.OnCloseTabCommand, Source={x:Static m:Locator.Instance}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource UI_TabButton}">
+                                                    <Image
+                                                        Width="16"
+                                                        Height="16"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Effect="{StaticResource DEFAULT_DropShadow}"
+                                                        Source="{StaticResource UI_CloseIcon}" />
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false" />
+                                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Cursor" Value="Hand" />
+                                                <Setter Property="Height" Value="40" />
+                                                <Setter Property="Margin" Value="0,11,0,0" />
+                                                <Setter TargetName="mainBorder" Property="BorderThickness" Value="1,1,0,1" />
+                                                <Setter TargetName="PART_Button" Property="Visibility" Value="Collapsed" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false" />
+                                                    <Condition Binding="{Binding SelectedIndex, ElementName=MainTabControl}" Value="0" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Cursor" Value="Hand" />
+                                                <Setter Property="Height" Value="40" />
+                                                <Setter Property="Margin" Value="0,11,0,0" />
+                                                <Setter TargetName="mainBorder" Property="BorderThickness" Value="0,1,1,0" />
+                                                <Setter TargetName="PART_Button" Property="Visibility" Value="Collapsed" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true" />
+                                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Cursor" Value="Arrow" />
+                                                <Setter Property="Panel.ZIndex" Value="1" />
+                                                <Setter TargetName="mainBorder" Property="BorderThickness" Value="1,1,1,0" />
+                                                <Setter TargetName="PART_Button" Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabControl.ItemTemplate>
+                        <DataTemplate DataType="m:TabModel">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    x:Name="PART_Icon"
+                                    Grid.Column="0"
+                                    Margin="6,2,0,2"
+                                    Source="{StaticResource UI_IconTags}" />
+                                <Label
+                                    x:Name="PART_Title"
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    Padding="6,0,6,2"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Center"
+                                    Content="{Binding Name}"
+                                    FontSize="12"
+                                    Foreground="{StaticResource DEFAULT_WindowForeground}" />
+                            </Grid>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate DataType="t:FilmTab">
+                            <Border
+                                Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}"
+                                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}"
+                                BorderThickness="1">
+                                <Border
+                                    Margin="3"
+                                    Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}"
+                                    BorderThickness="0">
+                                    <ContentPresenter Content="{Binding Path=Content}" />
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
+            </Grid>
+
+        </Grid>
+
+        <!--  STATUS  -->
+        <Grid x:Name="Grid_Status" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                Padding="5,3,5,5"
+                VerticalContentAlignment="Center"
+                Content="{Binding Path=Application.Version, Source={x:Static m:Locator.Instance}}"
+                Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+            <Label
+                Grid.Column="1"
+                Padding="5,3,5,5"
+                VerticalContentAlignment="Center"
+                Content="{Binding Path=Application.Status, Source={x:Static m:Locator.Instance}}"
+                Foreground="{DynamicResource DEFAULT_WindowForeground}" />
+        </Grid>
+
+    </Grid>
+
+</Window>
