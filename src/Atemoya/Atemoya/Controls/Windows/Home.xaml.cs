@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Atemoya.Classes.Github;
+using Atemoya.Classes.Helpers;
+using PropertyChanged;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
-using PropertyChanged;
-using Atemoya.Classes.Helpers;
 
 namespace Atemoya.Controls.Windows {
 
@@ -76,8 +78,36 @@ namespace Atemoya.Controls.Windows {
             Process.Start("https://github.com/Twigzie/Twigzie-Fantality-Halo-Atemoya");
         }
         private void OnMenuAbout(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Coded with love by: Twigzie\r\n\nReason:\r\n\nSketchness: Absolutely none.. Passwords you enter are encrypted and can only be decrypted using your system. The source is hosted on Github (... > Github) if you still don't believe me, you can always compile it yourself (if you haven't already)", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Coded with love by: Twigzie\r\n\nReason: I'm lazy and cant remember which accounts I have... If any...\r\n\nSketchness: Absolutely none.. Passwords you enter are encrypted and can only be decrypted using your system. The source is hosted on Github (... > Github) if you still don't believe me, you can always compile it yourself (if you haven't already)", "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        private void OnMenuUpdates(object sender, RoutedEventArgs e) {
+            UpdateCommand();
+        }
+
+        #region Updates
+
+        public static async void UpdateCommand() {
+            await UpdateCommandAsync();
+        }
+        private static async Task UpdateCommandAsync() {
+            try {
+
+                var update = await Updater.GetUpdates();
+                if (update.IsAvailable) {
+                    if (MessageBox.Show("Would you look at that, looks like theres been progress since you've last ran this application. Update now? (no fancy install, just opens the link in your browser)", "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.No) == MessageBoxResult.Yes)
+                        Process.Start(update.Url);
+                }
+                else {
+                    MessageBox.Show("Like my life, there have been no updates...", "Shame", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex) {
+                //TODO: Something other than this...
+                Debug.WriteLine(ex);
+            }
+        }
+
+        #endregion
 
         [SuppressPropertyChangedWarnings]
         private void OnWindowChanged(object sender, EventArgs e) {

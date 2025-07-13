@@ -90,6 +90,7 @@
                 <MenuItem Header="..." WindowChrome.IsHitTestVisibleInChrome="True">
                     <MenuItem Click="OnMenuGithub" Header="Github" />
                     <MenuItem Click="OnMenuAbout" Header="About" />
+                    <MenuItem Click="OnMenuUpdates" Header="Check For Updates"/>
                 </MenuItem>
             </Menu>
 

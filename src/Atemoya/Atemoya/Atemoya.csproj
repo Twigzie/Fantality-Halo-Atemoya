@@ -17,7 +17,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2025.0713.66.0000</AssemblyVersion>
+    <AssemblyVersion>2025.0713.69.0039</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,6 +108,7 @@
     <Compile Include="Classes\Converters\NotBoolToVisibilityConverter.cs" />
     <Compile Include="Classes\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Classes\Converters\TypeToImageConverter.cs" />
+    <Compile Include="Classes\Github\Updater.cs" />
     <Compile Include="Classes\Helpers\Controls\PasswordHelper.cs" />
     <Compile Include="Classes\Helpers\Enums.cs" />
     <Compile Include="Classes\Helpers\Extensions\BaseExtensions.cs" />
