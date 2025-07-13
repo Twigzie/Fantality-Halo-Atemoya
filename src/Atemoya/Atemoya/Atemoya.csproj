@@ -17,7 +17,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2025.0712.62.2140</AssemblyVersion>
+    <AssemblyVersion>2025.0713.66.0000</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -115,7 +115,6 @@
     <Compile Include="Classes\Helpers\Native.cs" />
     <Compile Include="Classes\Helpers\Paths.cs" />
     <Compile Include="Classes\Helpers\Security\Encryption.cs" />
-    <Compile Include="Classes\Helpers\Security\AESEncryption.cs" />
     <Compile Include="Classes\Models\Base\Model.cs" />
     <Compile Include="Classes\Models\Application\GamertagModel.cs" />
     <Compile Include="Classes\Models\Locator.cs" />
