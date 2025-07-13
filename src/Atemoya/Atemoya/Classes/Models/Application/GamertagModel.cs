@@ -3,12 +3,13 @@ using Atemoya.Classes.Commands.Behaviors;
 using Atemoya.Classes.Config;
 using Atemoya.Classes.Entities;
 using Atemoya.Classes.Helpers;
+using Atemoya.Classes.Helpers.Extensions;
 using Atemoya.Classes.Helpers.Security;
 using Atemoya.Classes.Models.Base;
 using Atemoya.Controls.Windows.Dialogs;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -81,10 +82,7 @@ namespace Atemoya.Classes.Models.Application {
             try {
 
                 if (new Add().ShowDialog() == true) {
-                    MessageBox.Show("true");
-                }
-                else {
-                    MessageBox.Show("false");
+                    Tags.SortByIsNewFirst();
                 }
 
             }
@@ -142,7 +140,7 @@ namespace Atemoya.Classes.Models.Application {
 
         public ICommand SaveGamertagCommand => new RelayGenericParamCommand<Gamertag>((gamertag) => {
             try {
-                if (MessageBox.Show($"Are you sure you want to save the selected Profile?\r\n\nGamertag: {gamertag.Name}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes) {
+                if (MessageBox.Show($"Are you sure you want to save the selected Profile?\r\n\nGamertag: {Encryption.DecryptString(gamertag.Name)}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes) {
                     gamertag.Email    = Encryption.EncryptString(gamertag.NewEmail);
                     gamertag.Password = Encryption.EncryptFromSecureString(gamertag.NewPassword);
                     //AppSettings.Instance.Save();
@@ -166,8 +164,11 @@ namespace Atemoya.Classes.Models.Application {
         public ICommand RemoveGamertagCommand => new RelayGenericParamCommand<Gamertag>((gamertag) => {
             try {
 
-                if (MessageBox.Show($"Are you sure you want to remove the selected Profile?\r\n\nGamertag: {gamertag.Name}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
+                if (MessageBox.Show($"Are you sure you want to remove the selected Profile?\r\n\nGamertag: {Encryption.DecryptString(gamertag.Name)}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
                     return;
+
+                if (Tags.Remove(gamertag))
+                    AppSettings.Instance.Save();
 
             }
             catch (Exception ex) {

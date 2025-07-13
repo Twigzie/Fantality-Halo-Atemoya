@@ -282,7 +282,7 @@
                                     Grid.Column="0"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    Content="{Binding Path=Name}"
+                                    Content="{Binding Path=Name, Converter={CONVERTERS:EncryptedStringToStringConverter}}"
                                     FontSize="20"
                                     Foreground="{DynamicResource DEFAULT_WindowForeground}" />
                                 <Image
@@ -395,7 +395,7 @@
                                                 Foreground="{DynamicResource DEFAULT_WindowForeground}"
                                                 IsEnabled="{Binding IsEditing}"
                                                 PasswordChar="*"
-                                                Style="{DynamicResource PasswordBoxStyle1}">
+                                                Style="{DynamicResource UI_PasswordBox}">
                                                 <i:Interaction.Behaviors>
                                                     <BEHAVIORS:PasswordChangedCommandBehavior Command="{Binding Path=Gamertags.ChangePasswordCommand, Source={x:Static MODELS:Locator.Instance}}" 
                                                                                               CommandParameter="{Binding}" />
@@ -490,6 +490,13 @@
                                     </Button>
 
                                 </Grid>
+
+                                <Image Grid.Column="4" 
+                                       Source="/Resources/Images/Icons/icon_new.png" 
+                                       Width="30" 
+                                       HorizontalAlignment="Right" 
+                                       VerticalAlignment="Top"
+                                       Visibility="{Binding IsNew, Converter={CONVERTERS:IsBoolToVisibilityConverter}}"/>
 
                             </Grid>
 

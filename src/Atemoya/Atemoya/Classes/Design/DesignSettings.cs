@@ -16,7 +16,8 @@ namespace Atemoya.Classes.Design {
                     Input = InputType.Controller,
                     Created = 0,
                     Updated = 0,
-                    IsEditing = true
+                    IsEditing = true,
+                    IsNew = true
                 }
             };
 

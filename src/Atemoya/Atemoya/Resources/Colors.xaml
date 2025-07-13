@@ -8,5 +8,6 @@
     <SolidColorBrush x:Key="DEFAULT_WindowBackground" Color="#FF282828" />
     <SolidColorBrush x:Key="DEFAULT_WindowBackgroundDark" Color="#FF151515" />
     <SolidColorBrush x:Key="DEFAULT_WindowForeground" Color="#FFAEB0AE" />
-
+    <SolidColorBrush x:Key="DEFAULT_WindowAccent" Color="#926333" />
+    
 </ResourceDictionary>

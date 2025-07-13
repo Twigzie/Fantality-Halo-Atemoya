@@ -7,7 +7,7 @@
         xmlns:UI="clr-namespace:Atemoya.Controls.Windows.Dialogs"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance Type=UI:Add, IsDesignTimeCreatable=True}"
-        Height="393"
+        Height="430"
         Width="600"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -51,7 +51,7 @@
 
             <!-- Title -->
             <Label Grid.Column="1"
-                   Content="Add"
+                   Content="New Gamertag"
                    Foreground="{StaticResource DEFAULT_WindowForeground}" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             </Label>
@@ -124,7 +124,7 @@
             </StackPanel>
 
         </Grid>
-        
+
         <!-- CONTENT -->
         <Grid x:Name="Grid_Content" 
               Grid.Row="1"
@@ -144,11 +144,15 @@
                         <LineBreak/>
                         <LineBreak/>
                         <Italic>
-                        All account data provided through this application is <Bold>encrypted</Bold> using a machine-specific encryption key. This means the data can <Bold>only</Bold> be decrypted on the same computer 
+                            All account data provided through this application is
+                            <Bold>encrypted</Bold> using a machine-specific encryption key. This means the data can
+                            <Bold>only</Bold> be decrypted on the same computer 
                         that originally encrypted it.
-                        <LineBreak/>
-                        <LineBreak/>
-                        <Bold>No one</Bold> — including the developers — can access your encrypted information.</Italic>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Bold>No one</Bold> —
+                            <Bold>including the developers</Bold> — can access your encrypted information.
+                        </Italic>
                         <LineBreak/>
                     </Paragraph>
                 </FlowDocument>
@@ -161,72 +165,79 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                
-                <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" 
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Content="Gamertag"
+                           Foreground="{DynamicResource DEFAULT_WindowForeground}" 
+                           HorizontalAlignment="Right" />
+                <TextBox x:Name="UI_txtName" 
+                             Grid.Row="0"
+                             Grid.Column="1"                             
+                             Foreground="{DynamicResource DEFAULT_WindowForeground}"
+                             Width="250"
+                             MinWidth="250" 
+                             MaxWidth="250" 
+                             Height="30" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             VerticalContentAlignment="Center"/>
 
-                    <Label Grid.Column="0"
+                <Label Grid.Row="1" 
+                           Grid.Column="0"
                            VerticalAlignment="Center"
                            Content="Email"
                            Foreground="{DynamicResource DEFAULT_WindowForeground}" 
                            HorizontalAlignment="Right" />
-                    <TextBox Grid.Column="1"
+                <TextBox x:Name="UI_txtEmail" 
+                             Grid.Row="1"
+                             Grid.Column="1"                             
                              Foreground="{DynamicResource DEFAULT_WindowForeground}"
                              Width="250"
                              MinWidth="250" 
                              MaxWidth="250" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-
-                </Grid>
-                <Grid Grid.Row="1">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0"
+                
+                <Label Grid.Row="2" 
+                           Grid.Column="0"
                            VerticalAlignment="Center"
                            Content="Password"
                            Foreground="{DynamicResource DEFAULT_WindowForeground}" 
                            HorizontalAlignment="Right" />
-                    <PasswordBox Grid.Column="1"
-                                 MinWidth="250"
-                                 VerticalContentAlignment="Center"
-                                 Foreground="{DynamicResource DEFAULT_WindowForeground}"
-                                 PasswordChar="*"
-                                 Style="{DynamicResource PasswordBoxStyle1}" 
-                                 MaxWidth="250" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                </Grid>
-                <Grid Grid.Row="2">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0"
+                <TextBox x:Name="UI_txtPassword" 
+                         Grid.Row="2"
+                         Grid.Column="1"
+                         MinWidth="250"
+                         VerticalContentAlignment="Center"
+                         Foreground="{DynamicResource DEFAULT_WindowForeground}"
+                         MaxWidth="250" 
+                         Height="30" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center"/>
+                
+                <Label Grid.Row="3" 
+                           Grid.Column="0"
                            VerticalAlignment="Center"
                            Content="Input"
                            Foreground="{DynamicResource DEFAULT_WindowForeground}" 
                            HorizontalAlignment="Right" />
-                    <ComboBox Grid.Column="2"
-                             Foreground="{DynamicResource DEFAULT_WindowForeground}" 
+                <ComboBox x:Name="UI_comboInput" 
+                              Grid.Row="3"
+                              Grid.Column="1"
+                              Foreground="{DynamicResource DEFAULT_WindowForeground}" 
                               Width="250" 
                               MinWidth="250" 
-                              MaxWidth="250" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center">
-                        <ComboBoxItem Content="Mouse"/>
-                        <ComboBoxItem Content="Controller"/>
-                    </ComboBox>
+                              MaxWidth="250" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource UI_ComboBox}">
+                    <ComboBoxItem Content="Mouse"/>
+                    <ComboBoxItem Content="Controller"/>
+                </ComboBox>
 
-                </Grid>
-                
             </Grid>
             <Grid Grid.Row="2" 
                   HorizontalAlignment="Center" 
@@ -245,7 +256,7 @@
                         Margin="5,5,5,5" 
                         Width="70" 
                         Height="30"
-                        Click="OnRename"
+                        Click="OnAdd"
                         Style="{StaticResource UI_TabButton}" 
                         Background="{DynamicResource DEFAULT_WindowBackground}" 
                         BorderBrush="{DynamicResource DEFAULT_WindowBorder}" 

@@ -46,13 +46,13 @@ namespace Atemoya.Classes.Entities {
         }
 
         [DataMember(Name = "created", Order = 1)]
-        public int Created {
+        public long Created {
             get;
             set;
         }
 
         [DataMember(Name = "updated", Order = 2)]
-        public int Updated {
+        public long Updated {
             get;
             set;
         }

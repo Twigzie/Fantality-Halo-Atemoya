@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using static Atemoya.Classes.Helpers.Paths;
+using static Atemoya.Classes.Helpers.Extensions.BaseExtensions;
 
 namespace Atemoya.Classes.Config {
 
@@ -38,11 +39,6 @@ namespace Atemoya.Classes.Config {
             get; set;
         }
 
-        [DataMember(Name = "exported", Order = 3)]
-        public long LastExported {
-            get; set;
-        }
-
         [DataMember(Name = "gamertags", Order = 4)]
         public ObservableCollection<Gamertag> Gamertags {
             get; set;
@@ -61,7 +57,6 @@ namespace Atemoya.Classes.Config {
                             Version = temp.Version;
                             Created = temp.Created;
                             LastUpdated = temp.LastUpdated;
-                            LastExported = temp.LastExported;
                             Gamertags = temp.Gamertags;
                         }
                     }
@@ -69,10 +64,11 @@ namespace Atemoya.Classes.Config {
                 }
                 else {
 
+                    var time = GetEpochTime();
+
                     Version = 1;
-                    Created = 1;
-                    LastUpdated = 0;
-                    LastExported = 0;
+                    Created = time;
+                    LastUpdated = time;
                     Gamertags = new ObservableCollection<Gamertag>();
 
                     return Save();
@@ -87,6 +83,9 @@ namespace Atemoya.Classes.Config {
         }
         public bool Save() {
             try {
+
+                LastUpdated = GetEpochTime();
+
                 var serializer = new DataContractJsonSerializer(typeof(AppSettings));
                 using (var stream = new FileStream(AppConfig, FileMode.Create, FileAccess.Write))
                 using (var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8, false, true))

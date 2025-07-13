@@ -75,10 +75,13 @@ namespace Atemoya.Controls.Windows {
         }
 
         private void OnMenuGithub(object sender, RoutedEventArgs e) {
-            Process.Start("https://github.com/Twigzie/Twigzie-Fantality-Halo-Atemoya");
+            Process.Start("https://github.com/Twigzie/Fantality-Halo-Atemoya");
         }
         private void OnMenuAbout(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Coded with love by: Twigzie\r\n\nReason: I'm lazy and cant remember which accounts I have... If any...\r\n\nSketchness: Absolutely none.. Passwords you enter are encrypted and can only be decrypted using your system. The source is hosted on Github (... > Github) if you still don't believe me, you can always compile it yourself (if you haven't already)", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Coded with love by: TheDeadNorth\r\n\n" +
+                "Reason: I'm lazy and can't be bothered to remember which accounts I have... If any... and the credentials I used...\r\n\n" +
+                "Sketchness: Absolutely none.. information you provide is encrypted and can only be decrypted by you and your system. The source is hosted on Github (... > Github) if you still don't believe me, you can always compile it yourself (if you haven't already)\r\n\n" +
+                $"Wisdom: {Utils.GetRandomJoke()}", "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void OnMenuUpdates(object sender, RoutedEventArgs e) {
             UpdateCommand();

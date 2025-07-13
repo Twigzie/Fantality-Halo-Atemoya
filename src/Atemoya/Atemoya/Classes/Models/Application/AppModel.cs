@@ -21,6 +21,7 @@ namespace Atemoya.Classes.Models.Application {
             Instance = new AppModel() {
                 Caption = $"Atemoya (MCC Gamertag Manager)",
                 Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
+                Wisdom = $"Wisdom: {Utils.GetRandomJoke()}",
                 Status = "Ready"
             };
             Instance?.Initialize();
@@ -42,6 +43,10 @@ namespace Atemoya.Classes.Models.Application {
             set;
         }
         public string Version {
+            get;
+            set;
+        }
+        public string Wisdom {
             get;
             set;
         }
